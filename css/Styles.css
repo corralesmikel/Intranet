@@ -91,6 +91,7 @@ a:hover {
         width: 50vw;
         height: 65vh;
     }
+
     .News_Container {
         width: 50vw;
     }
@@ -112,9 +113,11 @@ a:hover {
         width: 100vw;
         height: 50vh;
     }
+
     .News_Container {
         width: 100vw;
     }
+
     .News {
         margin-bottom: 3vh;
     }

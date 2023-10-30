@@ -7,24 +7,48 @@
     width: 100vw;
     height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.Main {
-    width: 25vw;
-    height: 20vh;
-    background-color: aqua;
-    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.Text {
-    width: 50%;
+.Logo {
+    margin-bottom: 3vh;
+}
+
+.Main {
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 35px;
 }
 
 .Button {
     margin-top: 3vh;
+}
+
+
+@media (min-width: 751px) and (min-height: 301px) and (min-width: 301px) {
+    .Main {
+        width: 25vw;
+        height: 20vh;
+    }
+
+    .Text {
+        width: 50%;
+    }
+}
+
+@media (max-width: 750px) and (min-height: 301px) and (min-width: 301px) {
+    .Main {
+        width: 75vw;
+        height: 30vh;
+    }
+
+    .Text {
+        width: 75%;
+        height: 30px;
+    }
 }
