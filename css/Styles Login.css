@@ -17,18 +17,18 @@
 }
 
 .Main {
-    background-color: aqua;
+    background-image: linear-gradient(to right, rgb(13, 68, 150), rgb(138, 90, 138));
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     border-radius: 35px;
+    color: white;
 }
 
-.Button {
-    margin-top: 3vh;
+.Text {
+    margin-bottom: 3vh;
 }
-
 
 @media (min-width: 751px) and (min-height: 301px) and (min-width: 301px) {
     .N_min {
