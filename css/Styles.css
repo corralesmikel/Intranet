@@ -104,7 +104,7 @@ a:hover {
     .Carrousel {
         padding-top: 3vh;
         width: 100vw;
-        height: 15vh;
+        height: 55vh;
         margin: auto;
     }
 
@@ -114,6 +114,9 @@ a:hover {
     }
     .News_Container {
         width: 100vw;
+    }
+    .News {
+        margin-bottom: 3vh;
     }
 }
 
