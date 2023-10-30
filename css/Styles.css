@@ -4,7 +4,7 @@
 }
 
 .Index {
-    width: 100vw;
+    width: 99vw;
     height: 10vh;
     background-image: linear-gradient(to right, rgb(13, 68, 150), rgb(22, 3, 22));
     border-bottom-right-radius: 25px;
@@ -44,6 +44,11 @@ a:hover {
 
 .News_Container {
     margin-top: 3vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+    padding-top: 3vh;
 }
 
 .News {
@@ -86,6 +91,9 @@ a:hover {
         width: 50vw;
         height: 65vh;
     }
+    .News_Container {
+        width: 50vw;
+    }
 }
 
 @media (max-width: 750px) and (min-height: 301px) and (min-width: 301px) {
@@ -103,6 +111,9 @@ a:hover {
     .Car {
         width: 100vw;
         height: 50vh;
+    }
+    .News_Container {
+        width: 100vw;
     }
 }
 
