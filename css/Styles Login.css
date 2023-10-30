@@ -31,6 +31,10 @@
 
 
 @media (min-width: 751px) and (min-height: 301px) and (min-width: 301px) {
+    .N_min {
+        display: none;
+    }
+
     .Main {
         width: 25vw;
         height: 20vh;
@@ -42,6 +46,10 @@
 }
 
 @media (max-width: 750px) and (min-height: 301px) and (min-width: 301px) {
+    .N_min {
+        display: none;
+    }
+
     .Main {
         width: 75vw;
         height: 30vh;
@@ -50,5 +58,30 @@
     .Text {
         width: 75%;
         height: 30px;
+    }
+}
+
+@media (max-width: 300px) or (max-height: 300px) {
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .Center,
+    .Logo,
+    .Main,
+    .Text,
+    .Button {
+        display: none;
+    }
+
+    .N_min {
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        color: white;
     }
 }
