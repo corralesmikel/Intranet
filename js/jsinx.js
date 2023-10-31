@@ -4,22 +4,32 @@ document.addEventListener('DOMContentLoaded', function (event) {
 });
 
 function Noticias() {
+
     $.ajax({
-        url: './json/api.json',
-        dataType: 'json', //specifying here the response type, there's no need to parse the response
+        url: './Noticias.php',
+        type: "POST",
+        dataType: 'json',
         success: function (response) {
             //Variable
             var myhtml = "";
             //Loop
-            for (var i = 0; i < response.data.length; i++) {
-                myhtml += '<div class="Item-Flex">';
-                myhtml += "<img src='" + response.data[i].avatar + "'>";
-                myhtml += '<p>' + response.data[i].first_name + '</p>';
-                myhtml += '<p>' + response.data[i].email + '</p>';
-                myhtml += '</div>';
+            for (var i = 0; i < response.length && i < 2; i++) {
+                //Titulo
+                myhtml += "<div class='News'><div class='T_News'>";
+                myhtml += "<h1>" + response[i].titulo + "</h1></div>";
+                //Titulo
+                //Subtitulo
+                myhtml += "<div class='S_News'>";
+                myhtml += "<h3>" + response[i].subtitulo + "</h3></div>";
+                //Subtitulo
+                //Imagen
+                myhtml += "<div class='I_News'><style>";
+                myhtml += ".I_News {background-image: url(" + response[i].imagenes + ");}</style></div>";
+                //Imagen
             }
-            //ID Text
-            document.getElementById("Main-ID").innerHTML = myhtml;
+            //ID Container
+            document.getElementById("News_C_ID").innerHTML = myhtml;
+            //ID Container
         },
         error: function (xhr) {
             alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
