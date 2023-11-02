@@ -36,8 +36,8 @@
     }
 
     .Main {
-        width: 35vw;
-        height: 30vh;
+        width: 42vw;
+        height: 37vh;
     }
 
     .Text {
@@ -58,6 +58,11 @@
     .Text {
         width: 75%;
         height: 30px;
+    }
+
+    .Boton{
+        width: 70%;
+        height: 50px;
     }
 }
 
