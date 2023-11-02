@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   
   
     jQuery.ajax({
-      url: './Login.php',
+      url: './../php/Login.php',
       type: "POST",
       data: { Param: JSON.stringify(datos) },
       dataType: 'json',

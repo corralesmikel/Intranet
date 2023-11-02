@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 function Noticias() {
 
     $.ajax({
-        url: './Noticias.php',
+        url: './../php/Noticias.php',
         type: "POST",
         dataType: 'json',
         success: function (response) {
