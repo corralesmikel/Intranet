@@ -5,11 +5,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
   })
   
   function insert() {
-    var Usuario = document.getElementById('Nombre').value;
+    var Username = document.getElementById('Username').value;
     var Contraseña = document.getElementById('Contraseña').value;
+
+    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!regex.test(Username)) {
+        //Alerta
+        alert("Por favor, ingrese una cuenta de correo electrónico válida");
+        //Alerta
+        mal = 1
+    }
    
     var datos = {
-      'Usuario': Usuario,
+      'Username': Username,
       'Contraseña': Contraseña
     };
   
