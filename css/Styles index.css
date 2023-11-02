@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     padding: 3vh;
+    margin: auto;
 }
 
 .Logo {
@@ -128,11 +129,6 @@ a:hover {
 }
 
 @media (max-width: 300px) or (max-height: 300px) {
-    * {
-        padding: 0px;
-        margin: 0px;
-    }
-
     .Index,
     .Carrousel,
     .News,

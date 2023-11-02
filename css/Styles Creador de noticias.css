@@ -3,30 +3,56 @@
     margin: 0px;
 }
 
-.Center {
-    width: 100vw;
-    height: 100vh;
+.Index {
+    width: 99vw;
+    height: 10vh;
+    background-image: linear-gradient(to right, rgb(13, 68, 150), rgb(22, 3, 22));
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    padding: 3vh;
+    margin: auto;
 }
 
 .Logo {
-    margin-bottom: 3vh;
+    width: 5vw;
+    margin-left: 3vw;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+
+li {
+    margin-right: 5vw;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none !important;
+    -webkit-text-fill-color: white;
+}
+
+a:hover {
+    background: linear-gradient(rgb(255, 255, 255), rgb(238, 152, 234));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .Main {
-    background-image: linear-gradient(to right, rgb(13, 68, 150), rgb(138, 90, 138));
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 35px;
-    color: white;
+    margin-top: 25px;
 }
 
-.Text {
+.Texto {
+    width: 70vw;
     margin-bottom: 3vh;
 }
 
@@ -34,44 +60,16 @@
     .N_min {
         display: none;
     }
-
-    .Main {
-        width: 42vw;
-        height: 37vh;
-    }
-
-    .Text {
-        width: 50%;
-    }
 }
 
 @media (max-width: 750px) and (min-height: 301px) and (min-width: 301px) {
     .N_min {
         display: none;
     }
-
-    .Main {
-        width: 90vw;
-        height: 35vh;
-    }
-
-    .Text {
-        width: 75%;
-        height: 30px;
-    }
-
-    .Boton{
-        width: 70%;
-        height: 50px;
-    }
 }
 
 @media (max-width: 300px) or (max-height: 300px) {
-    .Center,
-    .Logo,
-    .Main,
-    .Text,
-    .Button {
+    .Main {
         display: none;
     }
 
