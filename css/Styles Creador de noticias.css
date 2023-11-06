@@ -49,6 +49,8 @@ a:hover {
     align-items: center;
     justify-content: center;
     margin-top: 25px;
+    width: 99vw;
+    height: 85vh;
 }
 
 .Texto {
@@ -65,6 +67,10 @@ a:hover {
 @media (max-width: 750px) and (min-height: 301px) and (min-width: 301px) {
     .N_min {
         display: none;
+    }
+    .boton {
+        width: 25vw;
+        height: 5vh;
     }
 }
 
