@@ -71,7 +71,7 @@
     .Logo,
     .Main,
     .Text,
-    .Button {
+    .Button, .imp {
         display: none;
     }
 
