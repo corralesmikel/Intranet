@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function (event) {
     checkSession();
 });
 
+// FALTA EL LOGIN
+
 function checkSession() {
     $.ajax({
         url: "./php/checkSession.php",
@@ -20,6 +22,7 @@ function checkSession() {
         }
     });
 }
+
 function LogPage() {
     // Mensaje No hay suficiente anchura
     myHtml = "<div class='N_min'>";
@@ -243,6 +246,7 @@ function CreadorNoticias() {
     //Creador Noticias
 }
 
+//Falta por hacer
 function Insert() {
     //Variable para filtro
     mal = 0
@@ -298,6 +302,7 @@ function Insert() {
         });
     }
 }
+//Falta por hacer
 
 function Trabajador() {
     alert("Eres Trabajador");
