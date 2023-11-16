@@ -248,7 +248,6 @@ function CreadorNoticias() {
     //Creador Noticias
 }
 
-// Falta por hacer
 function Insert() {
     // Variable para filtro
     mal = 0
@@ -311,7 +310,6 @@ function Insert() {
     }
     // Envio a la base de datos
 }
-// Falta por hacer
 
 function Trabajador() {
     //alert("Eres Trabajador");
