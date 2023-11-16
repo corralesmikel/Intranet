@@ -2,7 +2,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
     checkSession();
 });
 
-// FALTA EL LOGIN
+////////////////////////////////
+//////// FALTA EL LOGIN ////////
+////////////////////////////////
 
 function checkSession() {
     $.ajax({
@@ -88,7 +90,7 @@ function Login() {
 }
 
 function Administrador() {
-    alert("Eres Administrador");
+    //alert("Eres Administrador");
     var Tipo = 1
 
 
@@ -186,7 +188,7 @@ function Administrador() {
 }
 
 function CreadorNoticias() {
-    alert("Creador noticias");
+    //alert("Creador noticias");
 
     // Mensaje "No hay suficiente anchura"
     myHtml = "<div class='N_min'>";
@@ -212,11 +214,11 @@ function CreadorNoticias() {
     // Main
     myHtml += "<div class='Main'>";
     myHtml += "<h3>Titulo</h3>";
-    myHtml += "<input type='text' class='Texto' id='Titulo'>";
+    myHtml += "<input type='text' class='Texto' id='Titulo_CN'>";
     myHtml += "<h3>Subtitulo</h3>";
-    myHtml += "<input type='text' class='Texto' id='Subtitulo'>";
+    myHtml += "<input type='text' class='Texto' id='Subtitulo_CN'>";
     myHtml += "<h3>Imagen (Link)</h3>";
-    myHtml += "<input type='text' class='Texto' id='Imagen'>";
+    myHtml += "<input type='text' class='Texto' id='Imagen_CN'>";
     myHtml += "<input class='btn btn-primary boton' type='submit' value='Enviar' id='Enviar_CN'>";
     myHtml += "</div>";
     // Main
@@ -246,66 +248,73 @@ function CreadorNoticias() {
     //Creador Noticias
 }
 
-//Falta por hacer
+// Falta por hacer
 function Insert() {
-    //Variable para filtro
+    // Variable para filtro
     mal = 0
-    //Variable para filtro
-    var Username = document.getElementById('Username').value;
-    var Contraseña = document.getElementById('Contraseña').value;
-    //Filtro Usuario
-    var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Variable para filtro
 
-    if (!regex.test(Username)) {
-        //Alerta
-        alert("Por favor, ingrese una cuenta de correo electrónico válida");
-        //Alerta
-        mal = 1
-    }
-    if (/<script.*>.*<\/script>/i.test(Username)) {
-        //Alerta
-        alert("¡No se permiten scripts!");
-        //Alerta
-        mal = 1
-    }
-    //Filtro Usuario
-    //Filtro Contraseña
-    if (/<script.*>.*<\/script>/i.test(Contraseña)) {
-        //Alerta
-        alert("¡No se permiten scripts!");
-        //Alerta
-        mal = 1
-    }
-    //Filtro Contraseña
+    var Titulo = document.getElementById('Titulo_CN').value;
+    var Subtitulo = document.getElementById('Subtitulo_CN').value;
+    var Imagen = document.getElementById('Imagen_CN').value;
 
-    //Envio a la base de datos
+    // Filtro Titulo
+    if (/<script.*>.*<\/script>/i.test(Titulo)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Titulo
+
+    // Filtro Subtitulo
+    if (/<script.*>.*<\/script>/i.test(Subtitulo)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Subtitulo
+
+    // Filtro Imagen
+    if (/<script.*>.*<\/script>/i.test(Imagen)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Imagen
+
+    // Envio a la base de datos
     if (mal == 0) {
         var datos = {
-            'Username': Username,
-            'Contraseña': Contraseña
+            'Titulo': Titulo,
+            'Subtitulo': Subtitulo,
+            'Imagen': Imagen
         };
 
 
         jQuery.ajax({
-            url: './../php/Login.php',
+            url: 'php/Creador_de_noticias.php',
             type: "POST",
             data: { Param: JSON.stringify(datos) },
             dataType: 'json',
 
-            success: function (response) { // response contiene la respuesta del server
-                //alert (response.status); 
-                alert("formulario enviado");
+            success: function (response) { // Response contiene la respuesta del server
+                //alert (response.status);
+                alert("Noticias Creada");
             },
             error: function (xhr) {
                 console.log(xhr.responseText);
             }
         });
     }
+    // Envio a la base de datos
 }
-//Falta por hacer
+// Falta por hacer
 
 function Trabajador() {
-    alert("Eres Trabajador");
+    //alert("Eres Trabajador");
     var Tipo = 0
 
     // Mensaje 'No hay suficiente anchura'
