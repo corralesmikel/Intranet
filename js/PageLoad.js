@@ -80,8 +80,10 @@ function Login() {
 
     if (Rol == "Administrador" || Rol == "administrador" || Rol == "aDMINISTRADOR") {
         Administrador();
+        var Tipo = 1
     } else if (Rol == "Trabajador" || Rol == "trabajador" || Rol == "tRABAJADOR") {
         Trabajador();
+        var Tipo = 0
     } else {
         alert("Porfavor escriba correctamente el rol");
     }
@@ -91,7 +93,6 @@ function Login() {
 
 function Administrador() {
     //alert("Eres Administrador");
-    var Tipo = 1
 
 
     // Mensaje 'No hay suficiente anchura'
@@ -313,7 +314,6 @@ function Insert() {
 
 function Trabajador() {
     //alert("Eres Trabajador");
-    var Tipo = 0
 
     // Mensaje 'No hay suficiente anchura'
     myHtml = "<div class='N_min'>";
@@ -423,8 +423,8 @@ function Noticias() {
                 Noticias += "<h3>" + response[i].subtitulo + "</h3></div>";
                 //Subtitulo
                 //Imagen
-                Noticias += "<div class='I_News'><style>";
-                Noticias += ".I_News {background-image: url(" + response[i].imagenes + ");}</style></div>";
+                
+                Noticias += "<img class='I_News' src='" + response[i].imagenes + "'</div></div>"
                 //Imagen
             }
             //ID Container

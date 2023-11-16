@@ -38,6 +38,7 @@
     .Main {
         width: 42vw;
         height: 37vh;
+        min-height: 330px;
     }
 
     .Text {
