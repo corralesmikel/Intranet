@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 });
 
 ////////////////////////////////
-//////// FALTA EL LOGIN ////////
+///// ¡¡ FALTA EL LOGIN !! /////
 ////////////////////////////////
 
 function checkSession() {
@@ -16,7 +16,7 @@ function checkSession() {
             if (response.exists === false) { // si no existe sesión abierta
                 LogPage(); // carga el formulario 
             } else { // si existe sesión abierta
-                PrinPage(response); // carga página principal
+                //PrinPage(response); // carga página principal
             }
         },
         error: function (xhr) {
@@ -24,7 +24,7 @@ function checkSession() {
         }
     });
 }
-
+//----------------------------------------------------------------
 function LogPage() {
     // Mensaje No hay suficiente anchura
     myHtml = "<div class='N_min'>";
@@ -40,9 +40,11 @@ function LogPage() {
     // Main
     myHtml += "<div class='Main'>";
     myHtml += "<h3>Usuario</h3>";
-    myHtml += "<input type='text' class='Text' id='Username'>";
+    myHtml += "<input type='text' class='Text' id='Usuario'>";
     myHtml += "<h3>Contraseña</h3>";
     myHtml += "<input type='text' class='Text' id='Contraseña'>";
+
+    /*
     // Rol
     myHtml += "<h4>Rol (Administrador o Trabajador)</h4>";
     myHtml += "<input list='Rol' class='Text' id='Roles'>";
@@ -52,6 +54,8 @@ function LogPage() {
     myHtml += "<option value='Trabajador'>";
     myHtml += "</datalist>";
     // Rol
+    */
+
     myHtml += "<button type='button' class='btn btn-outline-light Boton' id='boton'>Login</button>";
 
     myHtml += " </div>";
@@ -74,23 +78,80 @@ function LogPage() {
     document.getElementById('boton').addEventListener("click", Login);
     //Cargar Login
 }
-
+//----------------------------------------------------------------
 function Login() {
-    var Rol = document.getElementById('Roles').value;
 
-    if (Rol == "Administrador" || Rol == "administrador" || Rol == "aDMINISTRADOR") {
-        Administrador();
-        var Tipo = 1
-    } else if (Rol == "Trabajador" || Rol == "trabajador" || Rol == "tRABAJADOR") {
-        Trabajador();
-        var Tipo = 0
-    } else {
-        alert("Porfavor escriba correctamente el rol");
-    }
+    //Datos formulario
+    var Usuario = document.getElementById('Usuario').value;
+    var Contraseña = document.getElementById('Contraseña').value;
+    //Datos formulario
 
+    //String
+    var datos = {
+        'Usuario': Usuario,
+        'Contraseña': Contraseña
+    };
+    //alert('Usuario: ' + datos.Usuario + ', Contraseña: ' + datos.Contraseña);
+    //String
 
+    //Enviar los datos
+    jQuery.ajax({
+        url: './php/Login.php',
+        type: "POST",
+        data: { Param: JSON.stringify(datos) },
+        dataType: 'json',
+
+        success: function (response) { // response contiene la respuesta del server
+            alert("Iniciando Sesion");
+        },
+        error: function (xhr) {
+            console.log("Error");
+        }
+    });
+    //Enviar los datos
+
+    //Recivir datos
+    $.ajax({
+        url: "./php/Login.php",
+        type: "POST",
+        dataType: 'json',
+        success: function (response) {
+
+            if (response.error === true) { // si no existe sesión abierta
+                LogPage(); // carga el formulario 
+            } else { // si existe sesión abierta
+                //PrinPage(response); // carga página principal
+                if (response.Rol === 0) {
+                    var myhtml = '<div>hola basico ' + response.username + '</div>';
+                } else {
+                    var myhtml = '<div>hola administrador ' + response.username + '</div>';
+                }
+                document.getElementById('imp').innerHTML = myHtml;
+            }
+        },
+        error: function (xhr) {
+            alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
+        }
+    });
+    //Recivir datos
+
+    /*
+        var Rol = document.getElementById('Roles').value;
+    
+        if (Rol == "Administrador" || Rol == "administrador" || Rol == "aDMINISTRADOR") {
+    
+            Administrador();
+            var Tipo = 1
+        } else if (Rol == "Trabajador" || Rol == "trabajador" || Rol == "tRABAJADOR") {
+            0
+            Trabajador();
+            var Tipo = 0
+        } else {
+            alert("Porfavor escriba correctamente el rol");
+        }
+    */
 }
-
+//----------------------------------------------------------------
 function Administrador() {
     //alert("Eres Administrador");
 
@@ -187,7 +248,7 @@ function Administrador() {
     Noticias();
     // Noticias la pagina
 }
-
+//----------------------------------------------------------------
 function CreadorNoticias() {
     //alert("Creador noticias");
 
@@ -248,7 +309,7 @@ function CreadorNoticias() {
     document.getElementById('Enviar_CN').addEventListener("click", Insert);
     //Creador Noticias
 }
-
+//----------------------------------------------------------------
 function Insert() {
     // Variable para filtro
     mal = 0
@@ -311,7 +372,7 @@ function Insert() {
     }
     // Envio a la base de datos
 }
-
+//----------------------------------------------------------------
 function Trabajador() {
     //alert("Eres Trabajador");
 
@@ -403,7 +464,7 @@ function Trabajador() {
     Noticias();
     // Noticias la pagina
 }
-
+//----------------------------------------------------------------
 function Noticias() {
     $.ajax({
         url: 'php/Noticias.php',
@@ -423,7 +484,7 @@ function Noticias() {
                 Noticias += "<h3>" + response[i].subtitulo + "</h3></div>";
                 //Subtitulo
                 //Imagen
-                
+
                 Noticias += "<img class='I_News' src='" + response[i].imagenes + "'</div></div>"
                 //Imagen
             }
@@ -436,3 +497,4 @@ function Noticias() {
         }
     });
 }
+//----------------------------------------------------------------

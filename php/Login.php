@@ -13,9 +13,9 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 if (!($conn->connect_error)) {
     //  buscamos en la bbdd ese usuario con su password
-    $query = 'SELECT * FROM users WHERE username = ? AND password=?';
+    $query = 'SELECT * FROM usuarios WHERE Usuario = ? AND Contraseña=?';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('ss', $received->username, $received->password);
+    $stmt->bind_param('ss', $Param->Usuario, $Param->Contraseña);
     $result = $stmt->execute();
     $resultset = $stmt->get_result();
 
@@ -26,7 +26,10 @@ if (!($conn->connect_error)) {
         $respuesta['error'] = false; // esto es lo que vamos a responder a la petición de javascript si ha habido éxito al validar
         // ahora se crea variable de sesión necesaria para poder mantenernos logueados
         session_start();
-        $_SESSION['username'] = $row['username'];  // creo una variable de sesión llamada username, donde guardo
+        $_SESSION['Usuario'] = $row['Usuario'];  // creo una variable de sesión llamada username, donde guardo
+        $_SESSION['Rol'] = $row['Rol']; 
+        $respuesta['Usuario'] = $row['Usuario'];
+        $respuesta['Rol'] = $row['Rol'];
         // el nombre de usuario que me ha devuelto la bbdd
     } else // si no obtengo registro de respuesta, es que  hemos fallado con el nombre o contraseña
     {
