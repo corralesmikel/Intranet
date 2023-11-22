@@ -105,7 +105,7 @@ function Login() {
             alert("Iniciando Sesion");
         },
         error: function (xhr) {
-            console.log("Error");
+            console.log("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
         }
     });
     //Enviar los datos
@@ -122,9 +122,9 @@ function Login() {
             } else { // si existe sesión abierta
                 //PrinPage(response); // carga página principal
                 if (response.Rol === 0) {
-                    var myhtml = '<div>hola basico ' + response.username + '</div>';
+                    var myHtml = '<div>hola basico ' + response.Usuario + '</div>';
                 } else {
-                    var myhtml = '<div>hola administrador ' + response.username + '</div>';
+                    var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
                 }
                 document.getElementById('imp').innerHTML = myHtml;
             }

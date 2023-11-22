@@ -1,6 +1,6 @@
 <?php
 
-$received = json_decode($_POST['param']);
+$received = json_decode( $_POST[ 'param' ] );
 // se lee el valor enviado por ajax vía POST
 
 $servername = 'localhost';
@@ -15,8 +15,11 @@ if (!($conn->connect_error)) {
     //  buscamos en la bbdd ese usuario con su password
     $query = 'SELECT * FROM usuarios WHERE Usuario = ? AND Contraseña=?';
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('ss', $Param->Usuario, $Param->Contraseña);
+
+    $stmt->bind_param('ss', $received->Usuario, $received->Contraseña);
+
     $result = $stmt->execute();
+
     $resultset = $stmt->get_result();
 
     if ($resultset->num_rows == 1)
@@ -27,7 +30,7 @@ if (!($conn->connect_error)) {
         // ahora se crea variable de sesión necesaria para poder mantenernos logueados
         session_start();
         $_SESSION['Usuario'] = $row['Usuario'];  // creo una variable de sesión llamada username, donde guardo
-        $_SESSION['Rol'] = $row['Rol']; 
+        $_SESSION['Rol'] = $row['Rol'];
         $respuesta['Usuario'] = $row['Usuario'];
         $respuesta['Rol'] = $row['Rol'];
         // el nombre de usuario que me ha devuelto la bbdd
