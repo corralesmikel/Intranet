@@ -103,38 +103,51 @@ function Login() {
 
         success: function (response) { // response contiene la respuesta del server
             alert("Iniciando Sesion");
+            if (response.error === true) { // si no existe sesión abierta
+                LogPage(); // carga el formulario 
+            } else { // si existe sesión abierta
+                //PrinPage(response); // carga página principal
+                if (response.Rol === 0) {
+                    //var myHtml = '<div>hola basico ' + response.Usuario + '</div>';
+                    Trabajador()
+                } else {
+                    //var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
+                    Administrador()
+                }
+                document.getElementById('imp').innerHTML = myHtml;
+            }
         },
         error: function (xhr) {
             console.log("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
         }
     });
     //Enviar los datos
-
-    //Recivir datos
-    $.ajax({
-        url: "./php/Login.php",
-        type: "POST",
-        dataType: 'json',
-        success: function (response) {
-
-            if (response.error === true) { // si no existe sesión abierta
-                LogPage(); // carga el formulario 
-            } else { // si existe sesión abierta
-                //PrinPage(response); // carga página principal
-                if (response.Rol === 0) {
-                    var myHtml = '<div>hola basico ' + response.Usuario + '</div>';
-                } else {
-                    var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
+    /*
+        //Recivir datos
+        $.ajax({
+            url: "./php/Login.php",
+            type: "POST",
+            dataType: 'json',
+            success: function (response) {
+    
+                if (response.error === true) { // si no existe sesión abierta
+                    LogPage(); // carga el formulario 
+                } else { // si existe sesión abierta
+                    //PrinPage(response); // carga página principal
+                    if (response.Rol === 0) {
+                        var myHtml = '<div>hola basico ' + response.Usuario + '</div>';
+                    } else {
+                        var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
+                    }
+                    document.getElementById('imp').innerHTML = myHtml;
                 }
-                document.getElementById('imp').innerHTML = myHtml;
+            },
+            error: function (xhr) {
+                alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
             }
-        },
-        error: function (xhr) {
-            alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
-        }
-    });
-    //Recivir datos
-
+        });
+        //Recivir datos
+    */
     /*
         var Rol = document.getElementById('Roles').value;
     
