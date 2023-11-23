@@ -1,6 +1,6 @@
 <?php
 
-$received = json_decode( $_POST[ 'param' ] );
+$received = json_decode($_POST['Param']);
 // se lee el valor enviado por ajax vía POST
 
 $servername = 'localhost';
