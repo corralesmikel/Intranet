@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 });
 
 ////////////////////////////////
-///// ¡¡ FALTA EL LOGIN !! /////
+//// ¡¡ FALTA LA COOKIE !! /////
 ////////////////////////////////
 
 function checkSession() {
@@ -17,12 +17,29 @@ function checkSession() {
                 LogPage(); // carga el formulario 
             } else { // si existe sesión abierta
                 //PrinPage(response); // carga página principal
+                Cookie(response); // carga pagina principal
             }
         },
         error: function (xhr) {
             alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
         }
     });
+}
+//----------------------------------------------------------------
+function Cookie(response) {
+    if (response.error === true) { // si no existe sesión abierta
+        LogPage(); // carga el formulario 
+    } else { // si existe sesión abierta
+        //PrinPage(response); // carga página principal
+        if (response.Rol === 0) {
+            //var myHtml = '<div>hola basico ' + response.Usuario + '</div>';
+            Trabajador()
+        } else {
+            //var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
+            Administrador()
+        }
+        document.getElementById('imp').innerHTML = myHtml;
+    }
 }
 //----------------------------------------------------------------
 function LogPage() {
@@ -42,19 +59,7 @@ function LogPage() {
     myHtml += "<h3>Usuario</h3>";
     myHtml += "<input type='text' class='Text' id='Usuario'>";
     myHtml += "<h3>Contraseña</h3>";
-    myHtml += "<input type='text' class='Text' id='Contraseña'>";
-
-    /*
-    // Rol
-    myHtml += "<h4>Rol (Administrador o Trabajador)</h4>";
-    myHtml += "<input list='Rol' class='Text' id='Roles'>";
-
-    myHtml += "<datalist id='Rol'>";
-    myHtml += "<option value='Administrador'>";
-    myHtml += "<option value='Trabajador'>";
-    myHtml += "</datalist>";
-    // Rol
-    */
+    myHtml += "<input type='password' class='Text' id='Contraseña'>";
 
     myHtml += "<button type='button' class='btn btn-outline-light Boton' id='boton'>Login</button>";
 
@@ -91,10 +96,9 @@ function Login() {
         'Usuario': Usuario,
         'Contraseña': Contraseña
     };
-    //alert('Usuario: ' + datos.Usuario + ', Contraseña: ' + datos.Contraseña);
     //String
 
-    //Enviar los datos
+    //Login
     jQuery.ajax({
         url: './php/Login.php',
         type: "POST",
@@ -102,7 +106,7 @@ function Login() {
         dataType: 'json',
 
         success: function (response) { // response contiene la respuesta del server
-            alert("Iniciando Sesion");
+            //alert("Iniciando Sesion");
             if (response.error === true) { // si no existe sesión abierta
                 LogPage(); // carga el formulario 
             } else { // si existe sesión abierta
@@ -121,53 +125,24 @@ function Login() {
             console.log("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
         }
     });
-    //Enviar los datos
-    /*
-        //Recivir datos
-        $.ajax({
-            url: "./php/Login.php",
-            type: "POST",
-            dataType: 'json',
-            success: function (response) {
-    
-                if (response.error === true) { // si no existe sesión abierta
-                    LogPage(); // carga el formulario 
-                } else { // si existe sesión abierta
-                    //PrinPage(response); // carga página principal
-                    if (response.Rol === 0) {
-                        var myHtml = '<div>hola basico ' + response.Usuario + '</div>';
-                    } else {
-                        var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
-                    }
-                    document.getElementById('imp').innerHTML = myHtml;
-                }
-            },
-            error: function (xhr) {
-                alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
-            }
-        });
-        //Recivir datos
-    */
-    /*
-        var Rol = document.getElementById('Roles').value;
-    
-        if (Rol == "Administrador" || Rol == "administrador" || Rol == "aDMINISTRADOR") {
-    
-            Administrador();
-            var Tipo = 1
-        } else if (Rol == "Trabajador" || Rol == "trabajador" || Rol == "tRABAJADOR") {
-            0
-            Trabajador();
-            var Tipo = 0
-        } else {
-            alert("Porfavor escriba correctamente el rol");
+    //Login
+}
+//----------------------------------------------------------------
+function Logout() {
+    $.ajax({
+        url: "./php/logout.php",
+        success: function () {
+            checkSession(); // se ejecuta el chequeo de sesión, 
+            // como /logout.php habrá eliminado la variable de sesión,se cargará el formulario de login.
+        },
+        error: function (xhr) {
+            alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
         }
-    */
+    });
 }
 //----------------------------------------------------------------
 function Administrador() {
     //alert("Eres Administrador");
-
 
     // Mensaje 'No hay suficiente anchura'
     myHtml = "<div class='N_min'>";
@@ -178,8 +153,13 @@ function Administrador() {
     // Indice
     myHtml += "<div class='Index'>";
     // Logo
+    myHtml += "<div class='BlockLogo'>";
     myHtml += "<img src='img/UNI eibar.png' alt='Logo' class='Logo'>";
+    myHtml += "</div>";
     // Logo
+
+    // Paginas
+    myHtml += "<div class='BlockPaginas'>";
     myHtml += "<ul>";
     myHtml += "<li class='Selected'>";
     myHtml += "<h5><a id='Inicio'>Inicio</a></h5>";
@@ -189,11 +169,21 @@ function Administrador() {
     myHtml += "</li>";
     myHtml += "</ul>";
     myHtml += "</div>";
+    //Paginas
+
+    // Logout
+    myHtml += "<div class='BlockLogout'>";
+    myHtml += "<button type='button' class='btn btn-primary' id='Logout'>Logout</button>"
+    myHtml += "</div>";
+    // Logout
+
+    myHtml += "</div>";
     // Indice
 
     // Carrousel
     myHtml += "<div class='Carrousel'>";
     myHtml += "<div id='myCarousel' class='carousel slide' data-bs-ride='carousel'>";
+
     // Indicadores
     myHtml += "<ol class='carousel-indicators'>";
     myHtml += "<li data-bs-target='#myCarousel' data-bs-slide-to='0' class='active'></li>";
@@ -255,6 +245,7 @@ function Administrador() {
     //Links indice
     document.getElementById('Inicio').addEventListener("click", Administrador);
     document.getElementById('C_Noticias').addEventListener("click", CreadorNoticias);
+    document.getElementById('Logout').addEventListener("click", Logout);
     //Links indice
 
     // Noticias la pagina
@@ -398,13 +389,27 @@ function Trabajador() {
     // Indice
     myHtml += "<div class='Index'>";
     // Logo
+    myHtml += "<div class='BlockLogo'>";
     myHtml += "<img src='img/UNI eibar.png' alt='Logo' class='Logo'>";
+    myHtml += "</div>";
     // Logo
+
+    // Paginas
+    myHtml += "<div class='BlockPaginas'>";
     myHtml += "<ul>";
     myHtml += "<li class='Selected'>";
     myHtml += "<h5><a id='Inicio'>Inicio</a></h5>";
     myHtml += "</li>";
     myHtml += "</ul>";
+    myHtml += "</div>";
+    // Paginas
+
+    // Logout
+    myHtml += "<div class='BlockLogout'>";
+    myHtml += "<button type='button' class='btn btn-primary' id='Logout'>Logout</button>"
+    myHtml += "</div>";
+    // Logout
+
     myHtml += "</div>";
     // Indice
 
@@ -451,8 +456,6 @@ function Trabajador() {
     myHtml += "<div class='News_Container' id='News_C_ID'></div>";
     // Noticias
 
-
-
     // LINKS
 
     // CSS propio
@@ -471,6 +474,7 @@ function Trabajador() {
 
     //Links indice
     document.getElementById('Inicio').addEventListener("click", Trabajador);
+    document.getElementById('Logout').addEventListener("click", Logout);
     //Links indice
 
     // Noticias la pagina
