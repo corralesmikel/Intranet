@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
     checkSession();
 });
 
-////////////////////////////////
-//// ¡¡ FALTA LA COOKIE !! /////
-////////////////////////////////
+/////////////////////////////////
+///// ¡¡ FALTA LOS LINKS !! /////
+/////////////////////////////////
 
 function checkSession() {
     $.ajax({
@@ -38,7 +38,7 @@ function Cookie(response) {
             //var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
             Administrador()
         }
-        document.getElementById('imp').innerHTML = myHtml;
+        //document.getElementById('imp').innerHTML = myHtml;
     }
 }
 //----------------------------------------------------------------
@@ -128,19 +128,7 @@ function Login() {
     //Login
 }
 //----------------------------------------------------------------
-function Logout() {
-    $.ajax({
-        url: "./php/logout.php",
-        success: function () {
-            checkSession(); // se ejecuta el chequeo de sesión, 
-            // como /logout.php habrá eliminado la variable de sesión,se cargará el formulario de login.
-        },
-        error: function (xhr) {
-            alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
-        }
-    });
-}
-//----------------------------------------------------------------
+
 function Administrador() {
     //alert("Eres Administrador");
 
@@ -152,6 +140,7 @@ function Administrador() {
 
     // Indice
     myHtml += "<div class='Index'>";
+
     // Logo
     myHtml += "<div class='BlockLogo'>";
     myHtml += "<img src='img/UNI eibar.png' alt='Logo' class='Logo'>";
@@ -169,7 +158,7 @@ function Administrador() {
     myHtml += "</li>";
     myHtml += "</ul>";
     myHtml += "</div>";
-    //Paginas
+    // Paginas
 
     // Logout
     myHtml += "<div class='BlockLogout'>";
@@ -232,17 +221,13 @@ function Administrador() {
     myHtml += "<link rel='stylesheet' href='css/Styles index.css'>";
     // CSS propio
 
-    // Script propio
-    myHtml += "<script src='js/jsinx.js'></script>";
-    // Script propio
-
     // LINKS
 
     //Imprimir la pagina
     document.getElementById('imp').innerHTML = myHtml;
     //Imprimir la pagina
 
-    //Links indice
+    // Links indice
     document.getElementById('Inicio').addEventListener("click", Administrador);
     document.getElementById('C_Noticias').addEventListener("click", CreadorNoticias);
     document.getElementById('Logout').addEventListener("click", Logout);
@@ -264,9 +249,15 @@ function CreadorNoticias() {
 
     // Indice
     myHtml += "<div class='Index'>";
+
     // Logo
+    myHtml += "<div class='BlockLogo'>";
     myHtml += "<img src='img/UNI eibar.png' alt='Logo' class='Logo'>";
+    myHtml += "</div>";
     // Logo
+
+    // Paginas
+    myHtml += "<div class='BlockPaginas'>";
     myHtml += "<ul>";
     myHtml += "<li class='Selected'>";
     myHtml += "<h5><a id='Inicio'>Inicio</a></h5>";
@@ -276,6 +267,9 @@ function CreadorNoticias() {
     myHtml += "</li>";
     myHtml += "</ul>";
     myHtml += "</div>";
+    myHtml += "</div>";
+    // Paginas
+
     // Indice
     // Main
     myHtml += "<div class='Main'>";
@@ -285,24 +279,21 @@ function CreadorNoticias() {
     myHtml += "<input type='text' class='Texto' id='Subtitulo_CN'>";
     myHtml += "<h3>Imagen (Link)</h3>";
     myHtml += "<input type='text' class='Texto' id='Imagen_CN'>";
-    myHtml += "<input class='btn btn-primary boton' type='submit' value='Enviar' id='Enviar_CN'>";
+    myHtml += "<input class='btn btn-primary boton' type='button' value='Enviar' id='Enviar_CN'>";
     myHtml += "</div>";
     // Main
 
     // LINKS
+
     // CSS propio
     myHtml += "<link rel='stylesheet' href='css/Styles Creador de noticias.css'>";
     // CSS propio
 
-    // Script propio
-    myHtml += "<script src='js/jscdn.js'></script>";
-    // Script propio
-
     // LINKS
 
-    //Imprimir la pagina
+    // Imprimir la pagina
     document.getElementById('imp').innerHTML = myHtml;
-    //Imprimir la pagina
+    // Imprimir la pagina
 
     //Links indice
     document.getElementById('Inicio').addEventListener("click", Administrador);
@@ -462,10 +453,6 @@ function Trabajador() {
     myHtml += "<link rel='stylesheet' href='css/Styles index.css'>";
     // CSS propio
 
-    // Script propio
-    myHtml += "<script src='js/jsinx.js'></script>";
-    // Script propio
-
     // LINKS
 
     //Imprimir la pagina
@@ -484,30 +471,43 @@ function Trabajador() {
 //----------------------------------------------------------------
 function Noticias() {
     $.ajax({
-        url: 'php/Noticias.php',
+        url: './php/Noticias.php',
         type: "POST",
         dataType: 'json',
         success: function (response) {
             //Variable
             var Noticias = "";
             //Loop
-            for (var i = 0; i < response.length && i < 2; i++) {
+            for (var i = 0; i < response.length && i < 3; i++) {
                 //Titulo
                 Noticias += "<div class='News'><div class='T_News'>";
-                Noticias += "<h1>" + response[i].titulo + "</h1></div>";
+                Noticias += "<h2>" + response[i].titulo + "</h2></div>";
                 //Titulo
                 //Subtitulo
                 Noticias += "<div class='S_News'>";
-                Noticias += "<h3>" + response[i].subtitulo + "</h3></div>";
+                Noticias += "<h4>" + response[i].subtitulo + "</h4></div>";
                 //Subtitulo
                 //Imagen
 
-                Noticias += "<img class='I_News' src='" + response[i].imagenes + "'</div></div>"
+                Noticias += "<img class='I_News' src='" + response[i].imagenes + "'></div>"
                 //Imagen
             }
             //ID Container
             document.getElementById("News_C_ID").innerHTML = Noticias;
             //ID Container
+        },
+        error: function (xhr) {
+            alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
+        }
+    });
+}
+//----------------------------------------------------------------
+function Logout() {
+    $.ajax({
+        url: "./php/logout.php",
+        success: function () {
+            checkSession(); // se ejecuta el chequeo de sesión, 
+            // como /logout.php habrá eliminado la variable de sesión,se cargará el formulario de login.
         },
         error: function (xhr) {
             alert("An AJAX error occured: " + xhr.status + " " + xhr.statusText);

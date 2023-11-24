@@ -6,6 +6,7 @@
 .Index {
     width: 99vw;
     height: 10vh;
+    min-height: 100px;
     background-image: linear-gradient(to right, rgb(13, 68, 150), rgb(22, 3, 22));
     border-bottom-right-radius: 25px;
     border-bottom-left-radius: 25px;
@@ -13,6 +14,16 @@
     align-items: center;
     padding: 3vh;
     margin: auto;
+}
+
+.BlockLogo {
+    width: 10%;
+    height: 100%;
+}
+
+.BlockPaginas {
+    width: 90%;
+    height: 100%;
 }
 
 .Logo {
@@ -41,6 +52,7 @@ a:hover {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+    cursor: pointer;
 }
 
 .Main {

@@ -39,7 +39,6 @@
 .Index {
     display: flex;
     align-items: center;
-
 }
 
 .Logo {
@@ -55,7 +54,6 @@ ul {
 
 li {
     margin-right: 5vw;
-    overflow: hidden;
 }
 
 a {
@@ -69,10 +67,6 @@ a:hover {
     background-clip: text;
     -webkit-text-fill-color: transparent;
     cursor: pointer;
-}
-
-body a:active {
-    color: purple;
 }
 
 .News_Container {

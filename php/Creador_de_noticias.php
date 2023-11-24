@@ -9,7 +9,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 
 if (!($conn->connect_error)) {
-  $query = "INSERT INTO noticias(Titulo,Subtitulo,Imagenes) VALUES (?,?,?)";
+  $query = "INSERT INTO noticias(Titulo,Subtitulo,Imagenes,Fecha) VALUES (?,?,?,NOW())";
   $stmt = $conn->prepare($query);
 
   $stmt->bind_param('sss', $Param->Titulo, $Param->Subtitulo, $Param->Imagen);

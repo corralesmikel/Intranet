@@ -8,7 +8,7 @@ $dbname = "intranet";
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if (!($conn->connect_error)) {
-    $query = "SELECT titulo, subtitulo, imagenes FROM intranet.noticias Limit 3";
+    $query = "SELECT titulo, subtitulo, imagenes FROM intranet.noticias ORDER BY noticias.Fecha DESC Limit 3";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $resultset = $stmt->get_result();
