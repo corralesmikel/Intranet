@@ -118,7 +118,7 @@ function Login() {
                     //var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
                     Administrador()
                 }
-                document.getElementById('imp').innerHTML = myHtml;
+                //document.getElementById('imp').innerHTML = myHtml;
             }
         },
         error: function (xhr) {
@@ -267,10 +267,17 @@ function CreadorNoticias() {
     myHtml += "</li>";
     myHtml += "</ul>";
     myHtml += "</div>";
-    myHtml += "</div>";
     // Paginas
 
+    // Logout
+    myHtml += "<div class='BlockLogout'>";
+    myHtml += "<button type='button' class='btn btn-primary' id='Logout'>Logout</button>"
+    myHtml += "</div>";
+    // Logout
+    myHtml += "</div>";
+
     // Indice
+
     // Main
     myHtml += "<div class='Main'>";
     myHtml += "<h3>Titulo</h3>";
@@ -298,6 +305,7 @@ function CreadorNoticias() {
     //Links indice
     document.getElementById('Inicio').addEventListener("click", Administrador);
     document.getElementById('C_Noticias').addEventListener("click", CreadorNoticias);
+    document.getElementById('Logout').addEventListener("click", Logout);
     //Links indice
 
     //Creador Noticias
@@ -503,6 +511,7 @@ function Noticias() {
 }
 //----------------------------------------------------------------
 function Logout() {
+    alert("Cerrando sesion");
     $.ajax({
         url: "./php/logout.php",
         success: function () {
