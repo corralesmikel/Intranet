@@ -211,7 +211,6 @@ function Registro() {
     }
 }
 //----------------------------------------------------------------
-
 function Administrador() {
     // Mensaje 'No hay suficiente anchura'
     myHtml = "<div class='N_min'>";
@@ -359,13 +358,21 @@ function CreadorNoticias() {
 
     // Main
     myHtml += "<div class='Main'>";
+    myHtml += "<h3>Aviso el Actualizar/Borrar se hara buscando por Titulo con lo que ¡Escribid bien los titulos o tendreis que eliminar la noticia!</h3>"
     myHtml += "<h3>Titulo</h3>";
     myHtml += "<input type='text' class='Texto' id='Titulo_CN'>";
     myHtml += "<h3>Subtitulo</h3>";
     myHtml += "<input type='text' class='Texto' id='Subtitulo_CN'>";
     myHtml += "<h3>Imagen (Link)</h3>";
     myHtml += "<input type='text' class='Texto' id='Imagen_CN'>";
-    myHtml += "<input class='btn btn-primary boton' type='button' value='Enviar' id='Enviar_CN'>";
+    // Botones
+    myHtml += "<div class='Botones'>";
+    myHtml += "<input class='btn btn-primary boton' type='button' value='Crear' id='Crear_CN'>";
+    myHtml += "<input class='btn btn-primary boton' type='button' value='Actualizar' id='Actualizar_CN'>";
+    myHtml += "<input class='btn btn-primary boton' type='button' value='Borrar' id='Borrar_CN'>";
+    myHtml += "</div>";
+    // Botones
+
     myHtml += "</div>";
     // Main
 
@@ -388,7 +395,9 @@ function CreadorNoticias() {
     //Links indice
 
     //Creador Noticias
-    document.getElementById('Enviar_CN').addEventListener("click", Insert);
+    document.getElementById('Crear_CN').addEventListener("click", Insert);
+    document.getElementById('Actualizar_CN').addEventListener("click", Update);
+    document.getElementById('Borrar_CN').addEventListener("click", Delete);
     //Creador Noticias
 }
 //----------------------------------------------------------------
@@ -445,7 +454,7 @@ function Insert() {
 
             success: function (response) { // Response contiene la respuesta del server
                 //alert (response.status);
-                alert("Noticias Creada");
+                alert("Noticia Creada");
             },
             error: function (xhr) {
                 console.log(xhr.responseText);
@@ -453,6 +462,131 @@ function Insert() {
         });
     }
     // Envio a la base de datos
+}
+//----------------------------------------------------------------
+function Update(){
+    //alert ("Update");
+    // Variable para filtro
+    mal = 0
+    // Variable para filtro
+
+    var Titulo = document.getElementById('Titulo_CN').value;
+    var Subtitulo = document.getElementById('Subtitulo_CN').value;
+    var Imagen = document.getElementById('Imagen_CN').value;
+
+    // Filtro Titulo
+    if (/<script.*>.*<\/script>/i.test(Titulo)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Titulo
+
+    // Filtro Subtitulo
+    if (/<script.*>.*<\/script>/i.test(Subtitulo)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Subtitulo
+
+    // Filtro Imagen
+    if (/<script.*>.*<\/script>/i.test(Imagen)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Imagen
+
+    // Envio a la base de datos
+    if (mal == 0) {
+        var datos = {
+            'Titulo': Titulo,
+            'Subtitulo': Subtitulo,
+            'Imagen': Imagen
+        };
+
+        jQuery.ajax({
+            url: 'php/Actualizador_de_noticias.php',
+            type: "POST",
+            data: { Param: JSON.stringify(datos) },
+            dataType: 'json',
+
+            success: function (response) { // Response contiene la respuesta del server
+                //alert (response.status);
+                alert("Noticia Actualizada");
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+}
+//----------------------------------------------------------------
+function Delete(){
+    //alert ("Delete");
+    // Variable para filtro
+    mal = 0
+    // Variable para filtro
+
+    var Titulo = document.getElementById('Titulo_CN').value;
+    var Subtitulo = document.getElementById('Subtitulo_CN').value;
+    var Imagen = document.getElementById('Imagen_CN').value;
+
+    // Filtro Titulo
+    if (/<script.*>.*<\/script>/i.test(Titulo)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Titulo
+
+    // Filtro Subtitulo
+    if (/<script.*>.*<\/script>/i.test(Subtitulo)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Subtitulo
+
+    // Filtro Imagen
+    if (/<script.*>.*<\/script>/i.test(Imagen)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Imagen
+
+    // Envio a la base de datos
+    if (mal == 0) {
+        var datos = {
+            'Titulo': Titulo,
+            'Subtitulo': Subtitulo,
+            'Imagen': Imagen
+        };
+
+
+        jQuery.ajax({
+            url: 'php/Borrador_de_noticias.php',
+            type: "POST",
+            data: { Param: JSON.stringify(datos) },
+            dataType: 'json',
+
+            success: function (response) { // Response contiene la respuesta del server
+                //alert (response.status);
+                alert("Noticia Borrada");
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
 }
 //----------------------------------------------------------------
 function Trabajador() {
