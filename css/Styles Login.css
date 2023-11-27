@@ -30,6 +30,11 @@
     margin-bottom: 3vh;
 }
 
+.Botones {
+    display: flex;
+    flex-direction: row;
+}
+
 @media (min-width: 751px) and (min-height: 301px) and (min-width: 301px) {
     .N_min {
         display: none;

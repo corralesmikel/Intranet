@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
     checkSession();
 });
 
-////////////////////////////////////
-///// ¡¡ FALTAN LOS FILTROS !! /////
-////////////////////////////////////
+//////////////////////////////////////////
+///// ¡¡ FALTAN LOS FILTROS (PHP) !! /////
+//////////////////////////////////////////
 
 function checkSession() {
     $.ajax({
@@ -61,7 +61,12 @@ function LogPage() {
     myHtml += "<h3>Contraseña</h3>";
     myHtml += "<input type='password' class='Text' id='Contraseña'>";
 
+    // Boton
+    myHtml += "<div class='Botones'>";
     myHtml += "<button type='button' class='btn btn-outline-light Boton' id='boton'>Login</button>";
+    myHtml += "<button type='button' class='btn btn-outline-light Boton' id='boton_reg'>Registro</button>";
+    myHtml += " </div>";
+    // Boton
 
     myHtml += " </div>";
     // Main
@@ -75,21 +80,28 @@ function LogPage() {
 
     // LINKS
 
-    //Imprimir la pagina
+    // Imprimir la pagina
     document.getElementById('imp').innerHTML = myHtml;
-    //Imprimir la pagina
+    // Imprimir la pagina
 
-    //Cargar Login
+    // Cargar Login
     document.getElementById('boton').addEventListener("click", Login);
-    //Cargar Login
+    // Cargar Login
+
+    // Cargar Registro
+    document.getElementById('boton_reg').addEventListener("click", Registro);
+    // Cargar Registro
 }
 //----------------------------------------------------------------
 function Login() {
+    // Variable para filtro
+    var mal = 0;
+    // Variable para filtro
 
-    //Datos formulario
+    // Datos formulario
     var Usuario = document.getElementById('Usuario').value;
     var Contraseña = document.getElementById('Contraseña').value;
-    //Datos formulario
+    // Datos formulario
 
     if (/<script.*>.*<\/script>/i.test(Usuario)) {
         // Alerta
@@ -107,15 +119,16 @@ function Login() {
     }
     // Filtro Imagen
 
-    //String
-    var datos = {
-        'Usuario': Usuario,
-        'Contraseña': Contraseña
-    };
-    //String
-
-    //Login
     if (mal == 0) {
+        // String
+        var datos = {
+            'Usuario': Usuario,
+            'Contraseña': Contraseña
+        };
+        // String
+
+        // Login
+
         jQuery.ajax({
             url: './php/Login.php',
             type: "POST",
@@ -143,13 +156,63 @@ function Login() {
             }
         });
     }
-    //Login
+    // Login
+}
+//----------------------------------------------------------------
+function Registro() {
+    // Variable para filtro
+    var mal = 0;
+    // Variable para filtro
+    //Datos formulario
+    var Usuario = document.getElementById('Usuario').value;
+    var Contraseña = document.getElementById('Contraseña').value;
+    //Datos formulario
+
+    if (/<script.*>.*<\/script>/i.test(Usuario)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+
+    // Filtro Imagen
+    if (/<script.*>.*<\/script>/i.test(Contraseña)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Imagen
+
+    if (mal == 0) {
+        // String
+        var datos = {
+            'Usuario': Usuario,
+            'Contraseña': Contraseña
+        };
+        // String
+
+        // Crear Usuario
+        jQuery.ajax({
+            url: 'php/Creador_de_Usuarios.php',
+            type: "POST",
+            data: { Param: JSON.stringify(datos) },
+            dataType: 'json',
+
+            success: function (response) { // Response contiene la respuesta del server
+                //alert (response.status);
+                alert("Registrado correctamente");
+            },
+            error: function (xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+        // Crear Usuario
+    }
 }
 //----------------------------------------------------------------
 
 function Administrador() {
-    //alert("Eres Administrador");
-
     // Mensaje 'No hay suficiente anchura'
     myHtml = "<div class='N_min'>";
     myHtml += "<h1>Esta pagina no tiene soporte en estas resoluciones</h1>";
@@ -257,8 +320,6 @@ function Administrador() {
 }
 //----------------------------------------------------------------
 function CreadorNoticias() {
-    //alert("Creador noticias");
-
     // Mensaje "No hay suficiente anchura"
     myHtml = "<div class='N_min'>";
     myHtml += "<h1>Esta pagina no tiene soporte en estas resoluciones</h1>";
@@ -395,8 +456,6 @@ function Insert() {
 }
 //----------------------------------------------------------------
 function Trabajador() {
-    //alert("Eres Trabajador");
-
     // Mensaje 'No hay suficiente anchura'
     myHtml = "<div class='N_min'>";
     myHtml += "<h1>Esta pagina no tiene soporte en estas resoluciones</h1>";
