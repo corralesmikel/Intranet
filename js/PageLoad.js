@@ -504,9 +504,9 @@ function Update(){
     // Envio a la base de datos
     if (mal == 0) {
         var datos = {
-            'Titulo': Titulo,
             'Subtitulo': Subtitulo,
-            'Imagen': Imagen
+            'Imagen': Imagen,
+            'Titulo': Titulo
         };
 
         jQuery.ajax({
