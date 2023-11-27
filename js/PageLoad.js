@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function (event) {
     checkSession();
 });
 
-/////////////////////////////////
-///// ¡¡ FALTA LOS LINKS !! /////
-/////////////////////////////////
+////////////////////////////////////
+///// ¡¡ FALTAN LOS FILTROS !! /////
+////////////////////////////////////
 
 function checkSession() {
     $.ajax({
@@ -91,6 +91,22 @@ function Login() {
     var Contraseña = document.getElementById('Contraseña').value;
     //Datos formulario
 
+    if (/<script.*>.*<\/script>/i.test(Usuario)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+
+    // Filtro Imagen
+    if (/<script.*>.*<\/script>/i.test(Contraseña)) {
+        // Alerta
+        alert("¡No se permiten scripts!");
+        // Alerta
+        mal = 1
+    }
+    // Filtro Imagen
+
     //String
     var datos = {
         'Usuario': Usuario,
@@ -99,32 +115,34 @@ function Login() {
     //String
 
     //Login
-    jQuery.ajax({
-        url: './php/Login.php',
-        type: "POST",
-        data: { Param: JSON.stringify(datos) },
-        dataType: 'json',
+    if (mal == 0) {
+        jQuery.ajax({
+            url: './php/Login.php',
+            type: "POST",
+            data: { Param: JSON.stringify(datos) },
+            dataType: 'json',
 
-        success: function (response) { // response contiene la respuesta del server
-            //alert("Iniciando Sesion");
-            if (response.error === true) { // si no existe sesión abierta
-                LogPage(); // carga el formulario 
-            } else { // si existe sesión abierta
-                //PrinPage(response); // carga página principal
-                if (response.Rol === 0) {
-                    //var myHtml = '<div>hola basico ' + response.Usuario + '</div>';
-                    Trabajador()
-                } else {
-                    //var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
-                    Administrador()
+            success: function (response) { // response contiene la respuesta del server
+                //alert("Iniciando Sesion");
+                if (response.error === true) { // si no existe sesión abierta
+                    LogPage(); // carga el formulario
+                } else { // si existe sesión abierta
+                    //PrinPage(response); // carga página principal
+                    if (response.Rol === 0) {
+                        //var myHtml = '<div>hola basico ' + response.Usuario + '</div>';
+                        Trabajador()
+                    } else {
+                        //var myHtml = '<div>hola administrador ' + response.Usuario + '</div>';
+                        Administrador()
+                    }
+                    //document.getElementById('imp').innerHTML = myHtml;
                 }
-                //document.getElementById('imp').innerHTML = myHtml;
+            },
+            error: function (xhr) {
+                console.log("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
             }
-        },
-        error: function (xhr) {
-            console.log("An AJAX error occured: " + xhr.status + " " + xhr.statusText);
-        }
-    });
+        });
+    }
     //Login
 }
 //----------------------------------------------------------------
