@@ -2,10 +2,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
     checkSession();
 });
 
-//////////////////////////////////////////
-///// ¡¡ FALTAN LOS FILTROS (PHP) !! /////
-//////////////////////////////////////////
-
 function checkSession() {
     $.ajax({
         url: "./php/checkSession.php",
