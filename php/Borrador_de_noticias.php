@@ -15,14 +15,19 @@ if (preg_match('/<script.*>.*<\/script>/i', $Param->Titulo)) {
 }
 // Anti script
 
-// Anti null
+// Anti null y limite de caracteres
 if ($Param->Titulo === null || trim($Param->Titulo) === "") {
     $respuesta['error'] = true;
     $respuesta['errorType'] = "Title cannot be empty";
     echo json_encode($respuesta);
     exit();
+} elseif (strlen($Param->Titulo) > 15) {
+    $respuesta['error'] = true;
+    $respuesta['errorType'] = "Title cannot exceed 15 characters";
+    echo json_encode($respuesta);
+    exit();
 }
-// Anti null
+// Anti null y limite de caracteres
 
 $servername = "localhost";
 $username = "AdminNoticias";
@@ -31,10 +36,14 @@ $dbname = "intranet";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if (!($conn->connect_error)) {
+    // Query
     $query = "DELETE from noticias where Titulo = ?";
     $stmt = $conn->prepare($query);
+    // Query
 
+    // Datos enviados del js
     $stmt->bind_param('s', $Param->Titulo);
+    // Datos enviados del js
 
     $stmt->execute();
 
@@ -45,6 +54,7 @@ if (!($conn->connect_error)) {
     header('Content-Type: application/json');
     $returnValue = ['status' => 'success'];
     echo json_encode($returnValue);
+    // Valores que devuelve a JS
 
 } else {
     die("Connection failed: " . $conn->connect_error);

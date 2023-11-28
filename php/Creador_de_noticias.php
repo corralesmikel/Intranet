@@ -1,10 +1,11 @@
 <?php
 
-$Param = json_decode($_POST['Param']);
+$Param = json_decode($_POST['Param']); // Datos del js
 $respuesta = array(); // Inicializar el array de respuesta
 
-// Filtros y validaciones
+// Filtro
 $mal = 0;
+// Filtro
 
 // Anti script en Titulo
 if (preg_match('/<script.*>.*<\/script>/i', $Param->Titulo)) {
@@ -13,6 +14,7 @@ if (preg_match('/<script.*>.*<\/script>/i', $Param->Titulo)) {
     echo json_encode($respuesta);
     exit();
 }
+// Anti script en Titulo
 
 // Anti script en Subtitulo
 if (preg_match('/<script.*>.*<\/script>/i', $Param->Subtitulo)) {
@@ -21,6 +23,7 @@ if (preg_match('/<script.*>.*<\/script>/i', $Param->Subtitulo)) {
     echo json_encode($respuesta);
     exit();
 }
+// Anti script en Subtitulo
 
 // Anti script en Imagen
 if (preg_match('/<script.*>.*<\/script>/i', $Param->Imagen)) {
@@ -29,22 +32,35 @@ if (preg_match('/<script.*>.*<\/script>/i', $Param->Imagen)) {
     echo json_encode($respuesta);
     exit();
 }
+// Anti script en Imagen
 
-// Anti null en Titulo
+// Anti null en Titulo y limite de caracteres
 if ($Param->Titulo === null || trim($Param->Titulo) === "") {
     $respuesta['error'] = true;
     $respuesta['errorType'] = "Title cannot be empty";
     echo json_encode($respuesta);
     exit();
+} elseif (strlen($Param->Titulo) > 15) {
+    $respuesta['error'] = true;
+    $respuesta['errorType'] = "Title cannot exceed 15 characters";
+    echo json_encode($respuesta);
+    exit();
 }
+// Anti null en Titulo y limite de caracteres
 
-// Anti null en Subtitulo
+// Anti null en Subtitulo y limite de caracteres
 if ($Param->Subtitulo === null || trim($Param->Subtitulo) === "") {
     $respuesta['error'] = true;
     $respuesta['errorType'] = "Subtitle cannot be empty";
     echo json_encode($respuesta);
     exit();
+} elseif (strlen($Param->Subtitulo) > 22) {
+    $respuesta['error'] = true;
+    $respuesta['errorType'] = "Subtitle cannot exceed 22 characters";
+    echo json_encode($respuesta);
+    exit();
 }
+// Anti null en Subtitulo y limite de caracteres
 
 // Anti null en Imagen
 if ($Param->Imagen === null || trim($Param->Imagen) === "") {
@@ -53,6 +69,7 @@ if ($Param->Imagen === null || trim($Param->Imagen) === "") {
     echo json_encode($respuesta);
     exit();
 }
+// Anti null en Imagen
 
 $servername = "localhost";
 $username = "AdminNoticias";
@@ -61,10 +78,14 @@ $dbname = "intranet";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if (!($conn->connect_error)) {
+    // Query
     $query = "INSERT INTO noticias(Titulo, Subtitulo, Imagenes, Fecha) VALUES (?, ?, ?, NOW())";
     $stmt = $conn->prepare($query);
+    // Query
 
+    // Datos enviados del js
     $stmt->bind_param('sss', $Param->Titulo, $Param->Subtitulo, $Param->Imagen);
+    // Datos enviados del js
 
     $stmt->execute();
 
@@ -75,6 +96,7 @@ if (!($conn->connect_error)) {
     header('Content-Type: application/json');
     $returnValue = ['status' => 'success'];
     echo json_encode($returnValue);
+    // Valores que devuelve a JS
 
 } else {
     die("Connection failed: " . $conn->connect_error);

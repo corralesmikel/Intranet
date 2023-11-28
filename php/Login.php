@@ -1,6 +1,6 @@
 <?php
 
-$received = json_decode($_POST['Param']);
+$received = json_decode($_POST['Param']); // Datos del JS
 $respuesta = array(); // Inicializar el array de respuesta
 
 // Filtros y validaciones
@@ -28,50 +28,71 @@ if (preg_match('/<script.*>.*<\/script>/i', $received->Contraseña)) {
 }
 // Anti script
 
-// Anti null
+// Anti null y limite de caracteres
 if ($received->Usuario === null || trim($received->Usuario) === "") {
     $respuesta['error'] = true;
     $respuesta['errorType'] = "Username cannot be empty";
     $mal = 1;
+} elseif (strlen($received->Usuario) > 30) {
+    $respuesta['error'] = true;
+    $respuesta['errorType'] = "User cannot exceed 30 characters";
+    echo json_encode($respuesta);
+    exit();
 }
+
 if ($received->Contraseña === null || trim($received->Contraseña) === "") {
     $respuesta['error'] = true;
     $respuesta['errorType'] = "Password cannot be empty";
     $mal = 1;
+} elseif (strlen($received->Contraseña) < 8) {
+    $respuesta['error'] = true;
+    $respuesta['errorType'] = "Password must be at least 8 characters";
+    echo json_encode($respuesta);
+    exit();
+} elseif (strlen($received->Contraseña) > 20) {
+    $respuesta['error'] = true;
+    $respuesta['errorType'] = "Password must be at max 20 characters";
+    echo json_encode($respuesta);
+    exit();
 }
-// Anti null
+// Anti null y limite de caracteres
 
+// No cumplio los filtros
 if ($mal === 1) {
     // Datos que se envían al JS
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode($respuesta);
     exit(); // Detener la ejecución del código
 }
+// No cumplio los filtros
 
-// Valor POST
 $servername = 'localhost';
 $username = 'root';
 $password = '';
 $dbname = 'intranet';
 
-// Create connection
+
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if (!($conn->connect_error)) {
-    // Buscamos en la bbdd ese usuario
+
+    // Query
     $query = 'SELECT * FROM usuarios WHERE Usuario = ?';
     $stmt = $conn->prepare($query);
+    // Query
 
+    // Datos enviados del js
     $stmt->bind_param('s', $received->Usuario);
+    // Datos enviados del js
 
     $result = $stmt->execute();
 
     $resultset = $stmt->get_result();
 
-    // Comprobar HASH
+    // Comprobar usuario
     if ($resultset->num_rows == 1) {
         $row = $resultset->fetch_assoc();
-        if (password_verify($received->Contraseña, $row['Contraseña'])) {
+        if (password_verify($received->Contraseña, $row['Contraseña'])) { // Verifica HASH
             $respuesta['error'] = false;
             session_start();
             $_SESSION['Usuario'] = $row['Usuario'];
@@ -80,20 +101,18 @@ if (!($conn->connect_error)) {
             $respuesta['Rol'] = $row['Rol'];
 
         } else {
-            // Incorrect password
+            // Error contraseña
             $respuesta['error'] = true;
             $respuesta['errorType'] = "invalid username/password";
         }
-        // Comprobar HASH
+        // Comprobar usuario
 
     } else {
-        // Invalid username/password
+        // Invalid usuario
         $respuesta['error'] = true;
         $respuesta['errorType'] = "invalid username/password";
     }
-    // Comprobar que el usuario existe
 
-    // Conexiones
     $stmt->close();
     $conn->close();
 }
@@ -101,4 +120,5 @@ if (!($conn->connect_error)) {
 // Datos que se envían al JS
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode($respuesta);
+// Datos que se envían al JS
 ?>

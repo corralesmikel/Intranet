@@ -99,13 +99,34 @@ function Login() {
     var Contraseña = document.getElementById('Contraseña').value;
     // Datos formulario
 
+    // Anti null y limite de caracteres
+    if (Usuario === null || Usuario.trim() === "") {
+        alert("¡El campo de Usuario no puede estar vacío!");
+        mal = 1;
+    } else if (Usuario.length > 30) {
+        alert("¡El usuario no puede tener más de 30 caracteres!");
+        mal = 1;
+    }
+
+    if (Contraseña === null || Contraseña.trim() === "") {
+        alert("¡El campo de Contraseña no puede estar vacío!");
+        mal = 1;
+    } else if (Contraseña.length < 8) {
+        alert("¡La contraseña necesita minimo 8 caracteres!");
+        mal = 1;
+    } else if (Contraseña.length > 20) {
+        alert("¡La contraseña tiene un maximo de 20 caracteres!");
+        mal = 1;
+    }
+    // Anti null y limite de caracteres
+
     // Filtro Usuario
     var input_u = document.getElementById("Usuario");
     var valor_u = input_u.value;
     var regex = /^[a-zA-Z0-9]+$/;
     if (!regex.test(valor_u)) {
         //Alerta
-        alert("Usuario solo se permiten texto alfanumerico NO caracteres especiales");
+        alert("¡El nombre de usuario no puede tener caracteres especiales ni espacios!");
         //Alerta
         mal = 1
     }
@@ -125,17 +146,6 @@ function Login() {
         mal = 1
     }
     // Anti script
-
-    // Anti null
-    if (Usuario === null || Usuario.trim() === "") {
-        alert("¡El campo de Usuario no puede estar vacío!");
-        mal = 1;
-    }
-    if (Contraseña === null || Contraseña.trim() === "") {
-        alert("¡El campo de Contraseña no puede estar vacío!");
-        mal = 1;
-    }
-    // Anti null
 
     if (mal == 0) {
         // String
@@ -214,16 +224,26 @@ function Registro() {
     }
     // Anti script
 
-    // Anti null
+    // Anti null y limite de caracteres
     if (Usuario === null || Usuario.trim() === "") {
         alert("¡El campo de Usuario no puede estar vacío!");
         mal = 1;
+    } else if (Usuario.length > 30) {
+        alert("¡El usuario no puede tener más de 30 caracteres!");
+        mal = 1;
     }
+
     if (Contraseña === null || Contraseña.trim() === "") {
         alert("¡El campo de Contraseña no puede estar vacío!");
         mal = 1;
+    } else if (Contraseña.length < 8) {
+        alert("¡La contraseña necesita minimo 8 caracteres!");
+        mal = 1;
+    } else if (Contraseña.length > 20) {
+        alert("¡La contraseña tiene un maximo de 20 caracteres!");
+        mal = 1;
     }
-    // Anti null
+    // Anti null y limite de caracteres
 
     if (mal == 0) {
         // String
@@ -472,20 +492,29 @@ function Insert() {
     }
     // Anti script
 
-    // Anti null
+    // Anti null y limite de caracteres
     if (Titulo === null || Titulo.trim() === "") {
         alert("¡El campo de Titulo no puede estar vacío!");
+        mal = 1;
+    } else if (Titulo.length > 15) {
+        alert("¡El Título no puede tener más de 15 caracteres!");
         mal = 1;
     }
     if (Subtitulo === null || Subtitulo.trim() === "") {
         alert("¡El campo de Subtitulo no puede estar vacío!");
         mal = 1;
+    } else if (Subtitulo.length > 22) {
+        alert("¡El Subtítulo no puede tener más de 22 caracteres!");
+        mal = 1;
     }
+    // Anti null y limite de caracteres
+
+    // Anti null imagenes
     if (Imagen === null || Imagen.trim() === "") {
         alert("¡El campo de Imagen no puede estar vacío!");
         mal = 1;
     }
-    // Anti null
+    // Anti null imagenes
 
     // Envio a la base de datos
     if (mal == 0) {
@@ -544,20 +573,29 @@ function Update() {
     }
     // Anti script
 
-    // Anti null
+    // Anti null y limite de caracteres
     if (Titulo === null || Titulo.trim() === "") {
         alert("¡El campo de Titulo no puede estar vacío!");
+        mal = 1;
+    } else if (Titulo.length > 15) {
+        alert("¡El Título no puede tener más de 15 caracteres!");
         mal = 1;
     }
     if (Subtitulo === null || Subtitulo.trim() === "") {
         alert("¡El campo de Subtitulo no puede estar vacío!");
         mal = 1;
+    } else if (Subtitulo.length > 22) {
+        alert("¡El Subtítulo no puede tener más de 22 caracteres!");
+        mal = 1;
     }
+    // Anti null y limite de caracteres
+
+    // Ante null imagenes
     if (Imagen === null || Imagen.trim() === "") {
         alert("¡El campo de Imagen no puede estar vacío!");
         mal = 1;
     }
-    // Anti null
+    // Anti null imagenes
 
     // Envio a la base de datos
     if (mal == 0) {
@@ -614,12 +652,15 @@ function Delete() {
     }
     // Anti script
 
-    // Anti null
+    // Anti null y limite de caracteres
     if (Titulo === null || Titulo.trim() === "") {
         alert("¡El campo de Titulo no puede estar vacío!");
         mal = 1;
+    } else if (Titulo.length > 15) {
+        alert("¡El Título no puede tener más de 15 caracteres!");
+        mal = 1;
     }
-    // Anti null
+    // Anti null y limite de caracteres
 
     // Envio a la base de datos
     if (mal == 0) {
@@ -758,11 +799,11 @@ function Noticias() {
             for (var i = 0; i < response.length && i < 3; i++) {
                 //Titulo
                 Noticias += "<div class='News'><div class='T_News'>";
-                Noticias += "<h2>" + response[i].titulo + "</h2></div>";
+                Noticias += "<h3>" + response[i].titulo + "</h3></div>";
                 //Titulo
                 //Subtitulo
                 Noticias += "<div class='S_News'>";
-                Noticias += "<h4>" + response[i].subtitulo + "</h4></div>";
+                Noticias += "<h5>" + response[i].subtitulo + "</h5></div>";
                 //Subtitulo
                 //Imagen
 

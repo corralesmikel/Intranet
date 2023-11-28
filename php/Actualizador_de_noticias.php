@@ -1,6 +1,6 @@
 <?php
 
-$Param = json_decode($_POST['Param']);
+$Param = json_decode($_POST['Param']); // Datos del js
 $respuesta = array(); // Inicializar el array de respuesta
 
 // Filtros y validaciones
@@ -21,26 +21,42 @@ if (preg_match('/<script.*>.*<\/script>/i', $Param->Imagen)) {
 }
 // Anti script
 
-// Anti null
+// Anti null en Subtitulo y limite de caracteres
 if ($Param->Subtitulo === null || trim($Param->Subtitulo) === "") {
     $respuesta['error'] = true;
     $respuesta['errorType'] = "Subtitle cannot be empty";
     echo json_encode($respuesta);
     exit();
+} elseif (strlen($Param->Subtitulo) > 22) {
+    $respuesta['error'] = true;
+    $respuesta['errorType'] = "Subtitle cannot exceed 22 characters";
+    echo json_encode($respuesta);
+    exit();
 }
+// Anti null en Subtitulo y limite de caracteres
+
+// Anti null imagenes
 if ($Param->Imagen === null || trim($Param->Imagen) === "") {
     $respuesta['error'] = true;
     $respuesta['errorType'] = "Image field cannot be empty";
     echo json_encode($respuesta);
     exit();
 }
+// Anti null imagenes
+
+// Anti null en Titulo y limite de caracteres
 if ($Param->Titulo === null || trim($Param->Titulo) === "") {
     $respuesta['error'] = true;
     $respuesta['errorType'] = "Title cannot be empty";
     echo json_encode($respuesta);
     exit();
+} elseif (strlen($Param->Titulo) > 15) {
+    $respuesta['error'] = true;
+    $respuesta['errorType'] = "Title cannot exceed 15 characters";
+    echo json_encode($respuesta);
+    exit();
 }
-// Anti null
+// Anti null en Titulo y limite de caracteres
 
 $servername = "localhost";
 $username = "AdminNoticias";
@@ -49,10 +65,14 @@ $dbname = "intranet";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if (!($conn->connect_error)) {
+    // Query
     $query = "UPDATE noticias SET Subtitulo = ?, Imagenes = ? WHERE Titulo = ?;";
     $stmt = $conn->prepare($query);
+    // Query
 
+    // Datos enviados del js
     $stmt->bind_param('sss', $Param->Subtitulo, $Param->Imagen, $Param->Titulo);
+    // Datos enviados del js
 
     $stmt->execute();
 
@@ -63,7 +83,8 @@ if (!($conn->connect_error)) {
     header('Content-Type: application/json');
     $returnValue = ['status' => 'success'];
     echo json_encode($returnValue);
-
+    // Valores que devuelve a JS
+    
 } else {
     die("Connection failed: " . $conn->connect_error);
 }
