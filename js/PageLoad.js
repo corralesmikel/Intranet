@@ -800,15 +800,15 @@ function Noticias() {
             for (var i = 0; i < response.length && i < 3; i++) {
                 //Titulo
                 Noticias += "<div class='News'><div class='T_News'>";
-                Noticias += "<h3>" + response[i].titulo + "</h3></div>";
+                Noticias += "<h3>" + response[i].Titulo + "</h3></div>";
                 //Titulo
                 //Subtitulo
                 Noticias += "<div class='S_News'>";
-                Noticias += "<h5>" + response[i].subtitulo + "</h5></div>";
+                Noticias += "<h5>" + response[i].Subtitulo + "</h5></div>";
                 //Subtitulo
                 //Imagen
 
-                Noticias += "<img class='I_News' src='" + response[i].imagenes + "'></div>"
+                Noticias += "<img class='I_News' src='" + response[i].Imagenes + "'></div>"
                 //Imagen
             }
             //ID Container

@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$username = "noticias";
+$username = "AdminNoticias";
 $password = "Admin123";
 $dbname = "intranet";
 
@@ -8,7 +8,7 @@ $dbname = "intranet";
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 if (!($conn->connect_error)) {
-    $query = "SELECT titulo, subtitulo, imagenes FROM intranet.noticias ORDER BY noticias.Fecha DESC Limit 3";
+    $query = "SELECT * FROM noticiasint";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $resultset = $stmt->get_result();
