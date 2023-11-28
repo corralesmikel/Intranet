@@ -103,21 +103,43 @@ function Login() {
     var Contraseña = document.getElementById('Contraseña').value;
     // Datos formulario
 
+    // Filtro Usuario
+    var input_u = document.getElementById("Usuario");
+    var valor_u = input_u.value;
+    var regex = /^[a-zA-Z0-9]+$/;
+    if (!regex.test(valor_u)) {
+        //Alerta
+        alert("Usuario solo se permiten texto alfanumerico NO caracteres especiales");
+        //Alerta
+        mal = 1
+    }
+    // Filtro Usuario
+
+    // Anti script
     if (/<script.*>.*<\/script>/i.test(Usuario)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-
-    // Filtro Imagen
     if (/<script.*>.*<\/script>/i.test(Contraseña)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Imagen
+    // Anti script
+
+    // Anti null
+    if (Usuario === null || Usuario.trim() === "") {
+        alert("¡El campo de Usuario no puede estar vacío!");
+        mal = 1;
+    }
+    if (Contraseña === null || Contraseña.trim() === "") {
+        alert("¡El campo de Contraseña no puede estar vacío!");
+        mal = 1;
+    }
+    // Anti null
 
     if (mal == 0) {
         // String
@@ -139,6 +161,7 @@ function Login() {
                 //alert("Iniciando Sesion");
                 if (response.error === true) { // si no existe sesión abierta
                     LogPage(); // carga el formulario
+                    alert("Error al iniciar sesion");
                 } else { // si existe sesión abierta
                     //PrinPage(response); // carga página principal
                     if (response.Rol === 0) {
@@ -168,21 +191,43 @@ function Registro() {
     var Contraseña = document.getElementById('Contraseña').value;
     //Datos formulario
 
+    // Filtro Usuario
+    var input_u = document.getElementById("Usuario");
+    var valor_u = input_u.value;
+    var regex = /^[a-zA-Z0-9]+$/;
+    if (!regex.test(valor_u)) {
+        //Alerta
+        alert("Usuario solo se permiten texto alfanumerico NO caracteres especiales");
+        //Alerta
+        mal = 1
+    }
+    // Filtro Usuario
+
+    // Anti script
     if (/<script.*>.*<\/script>/i.test(Usuario)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-
-    // Filtro Imagen
     if (/<script.*>.*<\/script>/i.test(Contraseña)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Imagen
+    // Anti script
+
+    // Anti null
+    if (Usuario === null || Usuario.trim() === "") {
+        alert("¡El campo de Usuario no puede estar vacío!");
+        mal = 1;
+    }
+    if (Contraseña === null || Contraseña.trim() === "") {
+        alert("¡El campo de Contraseña no puede estar vacío!");
+        mal = 1;
+    }
+    // Anti null
 
     if (mal == 0) {
         // String
@@ -410,32 +455,41 @@ function Insert() {
     var Subtitulo = document.getElementById('Subtitulo_CN').value;
     var Imagen = document.getElementById('Imagen_CN').value;
 
-    // Filtro Titulo
+    // Anti script
     if (/<script.*>.*<\/script>/i.test(Titulo)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Titulo
-
-    // Filtro Subtitulo
     if (/<script.*>.*<\/script>/i.test(Subtitulo)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Subtitulo
-
-    // Filtro Imagen
     if (/<script.*>.*<\/script>/i.test(Imagen)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Imagen
+    // Anti script
+
+    // Anti null
+    if (Titulo === null || Titulo.trim() === "") {
+        alert("¡El campo de Titulo no puede estar vacío!");
+        mal = 1;
+    }
+    if (Subtitulo === null || Subtitulo.trim() === "") {
+        alert("¡El campo de Subtitulo no puede estar vacío!");
+        mal = 1;
+    }
+    if (Imagen === null || Imagen.trim() === "") {
+        alert("¡El campo de Imagen no puede estar vacío!");
+        mal = 1;
+    }
+    // Anti null
 
     // Envio a la base de datos
     if (mal == 0) {
@@ -464,8 +518,7 @@ function Insert() {
     // Envio a la base de datos
 }
 //----------------------------------------------------------------
-function Update(){
-    //alert ("Update");
+function Update() {
     // Variable para filtro
     mal = 0
     // Variable para filtro
@@ -474,32 +527,41 @@ function Update(){
     var Subtitulo = document.getElementById('Subtitulo_CN').value;
     var Imagen = document.getElementById('Imagen_CN').value;
 
-    // Filtro Titulo
+    // Anti script
     if (/<script.*>.*<\/script>/i.test(Titulo)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Titulo
-
-    // Filtro Subtitulo
     if (/<script.*>.*<\/script>/i.test(Subtitulo)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Subtitulo
-
-    // Filtro Imagen
     if (/<script.*>.*<\/script>/i.test(Imagen)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Imagen
+    // Anti script
+
+    // Anti null
+    if (Titulo === null || Titulo.trim() === "") {
+        alert("¡El campo de Titulo no puede estar vacío!");
+        mal = 1;
+    }
+    if (Subtitulo === null || Subtitulo.trim() === "") {
+        alert("¡El campo de Subtitulo no puede estar vacío!");
+        mal = 1;
+    }
+    if (Imagen === null || Imagen.trim() === "") {
+        alert("¡El campo de Imagen no puede estar vacío!");
+        mal = 1;
+    }
+    // Anti null
 
     // Envio a la base de datos
     if (mal == 0) {
@@ -526,8 +588,7 @@ function Update(){
     }
 }
 //----------------------------------------------------------------
-function Delete(){
-    //alert ("Delete");
+function Delete() {
     // Variable para filtro
     mal = 0
     // Variable para filtro
@@ -536,32 +597,41 @@ function Delete(){
     var Subtitulo = document.getElementById('Subtitulo_CN').value;
     var Imagen = document.getElementById('Imagen_CN').value;
 
-    // Filtro Titulo
+    // Anti script 
     if (/<script.*>.*<\/script>/i.test(Titulo)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Titulo
-
-    // Filtro Subtitulo
     if (/<script.*>.*<\/script>/i.test(Subtitulo)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Subtitulo
-
-    // Filtro Imagen
     if (/<script.*>.*<\/script>/i.test(Imagen)) {
         // Alerta
         alert("¡No se permiten scripts!");
         // Alerta
         mal = 1
     }
-    // Filtro Imagen
+    // Anti script
+
+    // Anti null
+    if (Titulo === null || Titulo.trim() === "") {
+        alert("¡El campo de Titulo no puede estar vacío!");
+        mal = 1;
+    }
+    if (Subtitulo === null || Subtitulo.trim() === "") {
+        alert("¡El campo de Subtitulo no puede estar vacío!");
+        mal = 1;
+    }
+    if (Imagen === null || Imagen.trim() === "") {
+        alert("¡El campo de Imagen no puede estar vacío!");
+        mal = 1;
+    }
+    // Anti null
 
     // Envio a la base de datos
     if (mal == 0) {
