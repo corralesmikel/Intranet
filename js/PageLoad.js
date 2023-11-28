@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     checkSession();
 });
 
+//----------------------------------------------------------------
 function checkSession() {
     $.ajax({
         url: "./php/checkSession.php",
