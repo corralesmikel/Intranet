@@ -623,14 +623,6 @@ function Delete() {
         alert("¡El campo de Titulo no puede estar vacío!");
         mal = 1;
     }
-    if (Subtitulo === null || Subtitulo.trim() === "") {
-        alert("¡El campo de Subtitulo no puede estar vacío!");
-        mal = 1;
-    }
-    if (Imagen === null || Imagen.trim() === "") {
-        alert("¡El campo de Imagen no puede estar vacío!");
-        mal = 1;
-    }
     // Anti null
 
     // Envio a la base de datos
