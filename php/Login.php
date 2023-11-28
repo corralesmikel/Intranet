@@ -67,8 +67,8 @@ if ($mal === 1) {
 // No cumplio los filtros
 
 $servername = 'localhost';
-$username = 'root';
-$password = '';
+$username = 'AdminUsuarios';
+$password = 'Admin123';
 $dbname = 'intranet';
 
 

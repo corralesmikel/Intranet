@@ -66,8 +66,8 @@ if ($Param->Contraseña === null || trim($Param->Contraseña) === "") {
 // Anti null y limite de caracteres
 
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "AdminUsuarios";
+$password = "Admin123";
 $dbname = "intranet";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
