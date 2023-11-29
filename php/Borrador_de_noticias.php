@@ -33,7 +33,7 @@ session_start();
 if (!isset($_SESSION['Usuario']))  // Comprobar si a iniciado sesion
 {
     // Sesion no iniciada
-    die("Connection failed: " . $conn->connect_error);
+    die("Not logged in: " . $conn->connect_error);
     // Sesion no iniciada
 } else {
     $servername = "localhost";
