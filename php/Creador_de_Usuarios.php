@@ -77,7 +77,7 @@ if (!($conn->connect_error)) {
     // HASH Contraseña
 
     // Query
-    $query = "INSERT INTO usuarios(Usuario, Contraseña, Rol, Fecha) VALUES (?, ?, 0, NOW())";
+    $query = "INSERT INTO usuarios(Usuario, Contraseña, Rol, Fecha, NoticiasCreadas) VALUES (?, ?, 0, NOW(), 0)";
     $stmt = $conn->prepare($query);
     // Query
 
