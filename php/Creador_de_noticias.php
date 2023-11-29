@@ -71,34 +71,42 @@ if ($Param->Imagen === null || trim($Param->Imagen) === "") {
 }
 // Anti null en Imagen
 
-$servername = "localhost";
-$username = "AdminNoticias";
-$password = "Admin123";
-$dbname = "intranet";
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if (!($conn->connect_error)) {
-    // Query
-    $query = "INSERT INTO noticias(Titulo, Subtitulo, Imagenes, Fecha) VALUES (?, ?, ?, NOW())";
-    $stmt = $conn->prepare($query);
-    // Query
-
-    // Datos enviados del js
-    $stmt->bind_param('sss', $Param->Titulo, $Param->Subtitulo, $Param->Imagen);
-    // Datos enviados del js
-
-    $stmt->execute();
-
-    $stmt->close();
-    $conn->close();
-
-    // Valores que devuelve a JS
-    header('Content-Type: application/json');
-    $returnValue = ['status' => 'success'];
-    echo json_encode($returnValue);
-    // Valores que devuelve a JS
-
-} else {
+session_start();
+if (!isset($_SESSION['Usuario']))  // Comprobar si a iniciado sesion
+{
+    // Sesion no iniciada
     die("Connection failed: " . $conn->connect_error);
+    // Sesion no iniciada
+} else {
+    $servername = "localhost";
+    $username = "AdminNoticias";
+    $password = "Admin123";
+    $dbname = "intranet";
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    if (!($conn->connect_error)) {
+        // Query
+        $query = "INSERT INTO noticias(Titulo, Subtitulo, Imagenes, IDCreador, Fecha) VALUES (?, ?, ?, ?, NOW())";
+        $stmt = $conn->prepare($query);
+        // Query
+
+        // Datos enviados del js
+        $stmt->bind_param('sssi', $Param->Titulo, $Param->Subtitulo, $Param->Imagen, $_SESSION["id"]);
+        // Datos enviados del js
+
+        $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+        // Valores que devuelve a JS
+        header('Content-Type: application/json');
+        $returnValue = ['status' => 'success'];
+        echo json_encode($returnValue);
+        // Valores que devuelve a JS
+
+    } else {
+        die("Connection failed: " . $conn->connect_error);
+    }
 }
 ?>

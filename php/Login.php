@@ -98,9 +98,12 @@ if (!($conn->connect_error)) {
             $_SESSION['id'] = $row['id'];
             $_SESSION['Usuario'] = $row['Usuario'];
             $_SESSION['Rol'] = $row['Rol'];
+            
+            // Cookie
             $respuesta['id'] = $row['id'];
             $respuesta['Usuario'] = $row['Usuario'];
             $respuesta['Rol'] = $row['Rol'];
+            // Cookie
 
         } else {
             // Error contraseña

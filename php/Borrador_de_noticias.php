@@ -29,35 +29,42 @@ if ($Param->Titulo === null || trim($Param->Titulo) === "") {
 }
 // Anti null y limite de caracteres
 
-$servername = "localhost";
-$username = "AdminNoticias";
-$password = "Admin123";
-$dbname = "intranet";
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if (!($conn->connect_error)) {
-    // Query
-    $query = "DELETE from noticias where Titulo = ?";
-    $stmt = $conn->prepare($query);
-    // Query
-
-    // Datos enviados del js
-    $stmt->bind_param('s', $Param->Titulo);
-    // Datos enviados del js
-
-    $stmt->execute();
-
-    $stmt->close();
-    $conn->close();
-
-    // Valores que devuelve a JS
-    header('Content-Type: application/json');
-    $returnValue = ['status' => 'success'];
-    echo json_encode($returnValue);
-    // Valores que devuelve a JS
-
-} else {
+session_start();
+if (!isset($_SESSION['Usuario']))  // Comprobar si a iniciado sesion
+{
+    // Sesion no iniciada
     die("Connection failed: " . $conn->connect_error);
-}
+    // Sesion no iniciada
+} else {
+    $servername = "localhost";
+    $username = "AdminNoticias";
+    $password = "Admin123";
+    $dbname = "intranet";
+    $conn = new mysqli($servername, $username, $password, $dbname);
 
+    if (!($conn->connect_error)) {
+        // Query
+        $query = "DELETE from noticias where Titulo = ?";
+        $stmt = $conn->prepare($query);
+        // Query
+
+        // Datos enviados del js
+        $stmt->bind_param('s', $Param->Titulo);
+        // Datos enviados del js
+
+        $stmt->execute();
+
+        $stmt->close();
+        $conn->close();
+
+        // Valores que devuelve a JS
+        header('Content-Type: application/json');
+        $returnValue = ['status' => 'success'];
+        echo json_encode($returnValue);
+        // Valores que devuelve a JS
+
+    } else {
+        die("Connection failed: " . $conn->connect_error);
+    }
+}
 ?>
