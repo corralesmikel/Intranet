@@ -5,6 +5,7 @@ session_start();
      $response["exists"]=false;  // almacenaremos false en la variable de respuesta
  }else{  // en caso de existir la variable de sesión
     $response["exists"]=true;  // almacena true en la variable de respuesta
+    $response["id"]=$_SESSION['id'];
     $response["Usuario"]=$_SESSION['Usuario']; // almacena el nombre de usuario guardado en la variable
     $response["Rol"]=$_SESSION['Rol'];
  }    
