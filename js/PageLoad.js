@@ -527,7 +527,7 @@ function Insert() {
 
 
         jQuery.ajax({
-            url: 'php/Creador_de_noticias.php',
+            url: './php/Creador_de_noticias.php',
             type: "POST",
             data: { Param: JSON.stringify(datos) },
             dataType: 'json',
